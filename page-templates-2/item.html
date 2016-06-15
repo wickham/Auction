@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Item Details</title>
+        <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+        <link href='http://fonts.googleapis.com/css?family=Gafata' rel='stylesheet' type='text/css'/>
+    </head>
+    <body>
+        <ul class="navbar">
+            <li><a href="#">&lt;-- Return(NotWorkingYet)</a></li>
+            <li><a href="mainpage.html">Home</a></li>
+            <li><a href="browse.html">Browse</a></li>
+            <li><a href="list_item.html">List Item</a></li>
+            <li><a href="logout_confirm.html">Logout</a></li>
+            <li class="go_right">* Directly linking under the assumption that you've logged in :)</li>
+        </ul>
+        <div class="content">
+        <h1>Generic Item Details</h1>
+        <form action="browse.html">
+            <input type="submit" value="<-- Back to Listings"/>
+        </form>
+         <div class="item_other">
+                <a href="item.html"><img class="item_pic" alt="generic item" src="http://www.c4gallery.com/artist/bale-allen-tumbleweeds/bale-creek-allen-tumbleweed-4.jpg"/></a>
+                <p>
+                    <a href="item.html">Tumblweed! Great Condition!</a><br/>
+                    Current price: $5.00<br/>
+                    Time left: 5hrs 3min 4sec<br/>
+                    Other item details<br/>
+                </p>
+            </div>
+        <form action="success.html">
+            <input type="text" name="user_bid"/>
+            <input type="submit" value="Place Bid"/>
+        </form>
+        </div>
+    </body>
+</html>

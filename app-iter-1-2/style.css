@@ -1,0 +1,434 @@
+@charset "UTF-8";
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans);
+@import url(http://fonts.googleapis.com/css?family=Lobster);
+
+/* For entire site */
+* {
+	margin: 0;
+	padding: 0;
+}
+
+/*************************************************************************************/
+/* Contrived CSS requirements */
+
+/*   1) Style at least two elements using the full box model -- 
+      all three of margin, border, and padding.  
+
+        One class ".item" has been styled with all three. This item contains an image with  details 
+      about this image. This can be found on several pages such as auction.html.
+        Another class ".itemWhole" also includes these three parameters. It is very similar to the item class
+      except for the fact that it is larger since it contains more information. It can be found on several
+      pages such as userHome.html. 
+
+   2) Style at least two adjacent elements using float. 
+   
+      In the "itemWhole" class (which shows the whole info on one item), I floated an image 
+    to the left and information (in an ordered list) to the right. Can be viewed on itemPage.html
+
+   3) Style at least one element using the several rule sets with selectors of different specificity.  
+      
+      The login link at the top of most pages is edited by several selectors. The asterisk selector for
+    the whole page determines the margin. The font family in the body determines its font face. The "userStatus"
+    class determines its text align position. Also, there is a class spefically for this element "login" that also
+    changes several attributes. It can be viewed at index.html.
+
+      */ 
+
+/*************************************************************************************/
+
+/* Coloring and Font*/
+
+body{
+	/*background-color: #BDBBBA;*/
+	font-family: 'Droid-Sans', sans-serif;
+}
+
+h1{
+	color: #3A2945;
+	font-family: 'Lobster', cursive;
+}
+
+h2{
+	color: #3A2945;
+	font-family: 'Lobster', cursive;
+}
+
+#bidSection h3{
+	background-color:  #CFFFC0;
+	font-family: 'Lobster', cursive;
+}
+
+#bidSection{
+	background-color: white;
+}
+
+nav{
+	background-color: #CFFFC0;
+    border-radius: 15em;
+
+}
+
+nav li:hover{
+	background-color:  #826263;
+}
+
+#searchBar{
+    border-radius: 15em;
+	background-color: #E3D995;
+}
+
+#login{
+    border-radius: 15em;
+	background-color: #E3D995;
+}
+
+#register{
+border-radius: 15em;
+	background-color: #E3D995;
+}
+
+#logout{
+border-radius: 15em;
+	background-color: #E3D995;
+}
+
+#userHome{
+border-radius: 15em;
+	background-color: #E3D995;
+}
+
+.regForm{
+border-radius: 15em;
+	background-color: #E3D995;
+}
+
+.itemWhole h3{
+border-radius: 15em;
+	background-color: #E3D995;
+}
+
+footer{
+	background-color: #826263;
+}
+
+/*************************************************************************************/
+
+/* Links Decoration */
+
+a:link { /* unvisited link */
+	text-decoration:none;
+	color: black;
+	font-weight: bold;
+}    
+a:visited { /* visited link */
+	text-decoration:none;
+	color: black;
+	font-weight: bold;
+} 
+a:hover { /* mouse over link */
+	text-decoration:underline;
+	font-weight: bold;
+}   
+a:active { /* selected link */
+	text-decoration:underline;
+	font-weight: bold;
+}  
+
+/*************************************************************************************/
+
+/* Page div */
+
+#page{
+	margin: .1em auto .1em auto;
+	width:85%;
+   
+}
+
+
+/*************************************************************************************/
+
+/* Login & Register / Logout Bar - User status */
+#userStatus{
+	text-align: center;
+	margin: 0 auto 2em 85%;
+/*	position: absolute;
+	right: 0;*/
+}
+
+#login{
+	width: 7em;
+	padding: .1em .1em .1em .1em;  
+	margin-bottom: .4em;
+}
+
+#register{
+	width: 7em;
+	padding: .1em .1em 0 .1em; 
+	margin-bottom: .2em;
+
+}
+
+#logout{
+	width: 7em;
+	padding: .1em .1em .1em .1em;  
+	margin-bottom: .4em;
+}
+
+#userHome{
+	width: 7em;
+	padding: .1em .1em 0 .1em; 
+	margin-bottom: .2em;
+
+}
+
+
+/*************************************************************************************/
+
+/* Navigation bar */
+nav{
+    text-align: center;
+}
+
+nav ul li{
+	display: inline-block;
+	padding: .2em 1em .2em 1em;
+	margin: 0 .3em 0 .3em;
+}
+
+/*************************************************************************************/
+
+/* User Options Quick bar - Located in the main user account page*/
+#userQuickBar{
+	display: inline-block; 
+}
+
+/*************************************************************************************/
+
+/* Search Bar */
+
+#searchBar{
+	margin: 0 auto 0 auto;
+	padding: 0 0 0 0;
+	width: 40%;
+	height: 2em;
+	display: inline-block;
+}
+
+#searchBar input[type="text"]{
+    width: 20em;
+    height: 2em;
+	margin: 0;
+}
+
+#searchBar input[type="submit"]{
+	width: 5em;
+	height: 2em;
+	margin: 0;
+}
+
+
+
+
+/*************************************************************************************/
+
+/* Search Criteria */
+
+#searchCrit{
+
+	display: inline-block;
+}
+
+
+#searchCrit p{
+    margin: .1em 3em .1em 3em;
+	display: inline-block;
+}
+
+/*************************************************************************************/
+
+/* Registration Forms (Login or Register) */
+
+.regForm{
+	margin: 3em auto .2em auto;
+	width: 60%;
+	text-align: center;
+}
+
+/*************************************************************************************/
+
+/* Headings */
+
+header{
+	width: 80%;
+}
+
+
+h1 {
+	margin: .2em .3em .2em 0;
+	padding: 0 .3em 0 0;
+	text-align: right;
+	width: 40%;
+	display: inline-block;
+}
+h2{
+	padding: 2em 0 .5em 0;
+}
+h3{
+	padding-left: 1em;
+	margin: 2em auto .5em auto;
+}
+h4{
+	text-align: center;
+}
+
+/*************************************************************************************/
+
+/* One Item */
+
+.item{
+	margin: 1em;
+	padding: .5em;
+	width: 20em;
+	height: 32em;
+	border: .1em solid #826B5D;
+}
+
+.item:hover{
+	border: .3em solid #826B5D;
+}
+
+.transfer{
+	padding-left: 2em;
+}
+
+/*************************************************************************************/
+
+/* Entire sheet of Info for One Item */
+
+.itemWhole{
+	width: 80%;
+	height: 33.5em;
+	border: .1em solid #826B5D;
+	margin: 1em auto 0 auto;
+	padding: .4em;
+}
+
+.itemWhole img{
+	float: left;
+	width: 22em;
+}
+
+.itemWhole dl{
+	float: right;
+    width: 59%;
+}
+
+.itemWhole ul{
+	float: right;
+    width: 59%;
+}
+
+.itemWhole h2{
+	padding: .1em 0 0 0;
+	text-align: center;
+}
+
+.itemWhole h3{
+	padding: .5em 0 0 0;
+	margin-top: 1em;
+	margin-bottom: .5em;
+	text-align: center;
+	width: 15em;
+}
+
+.itemWhole h4{
+	text-align: center;
+}
+
+.itemProperties{
+	clear: both;
+}
+
+.buttons{
+	clear: both;
+	padding-top: 1em;
+}
+
+
+/*************************************************************************************/
+
+/* Images */
+img{
+	width: 20em;
+	height: 20em;
+}
+
+/*************************************************************************************/
+
+/* Bid Button */
+
+#bidSection{
+	text-align: center;
+}
+
+/*************************************************************************************/
+
+/* Edit Button */
+
+.edit{
+	text-align: right;
+	margin-left: 4em;
+	margin-right: 0;
+	text-decoration: underline;
+}
+
+
+/*************************************************************************************/
+
+/* Basic Forms */
+
+form input{
+	margin: .5em 0 .5em 0;
+}
+
+form h4{
+	margin-right: auto;
+	margin-left: auto;
+	text-align: right;
+	width: 50%;
+}
+
+/*************************************************************************************/
+
+/* Ordered Lists */
+
+
+dt{
+	padding-left: 2em;
+}
+
+dd{
+	padding-left: 3em;
+}
+
+/*************************************************************************************/
+
+/* Unordered Lists */
+
+ul{
+	list-style-type: none;
+}
+
+li{
+	padding: .5em 0 .5em 3em;
+}
+
+
+/*************************************************************************************/
+
+/* Footer */
+footer{
+	margin-top: 3em;
+	padding: 1em 0 .5em 0;
+	text-align: center;
+}

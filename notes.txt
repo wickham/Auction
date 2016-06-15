@@ -1,0 +1,867 @@
+1 Encypt <-  https 'on'
+2 submit using post
+3 input field "password"
+store a secure password hash "BLOWFISH"
+use php seesion to store user id and call session_regular_id (true)
+when changing user rights
+
+
+SQL
+VARCHAR(70)
+NUMERIC(7,3) [1] total digits(PRECISION)  [2]how many after decimal(SCALE)
+INTEGER
+BOOLEAN
+
+mysql> CREATE TABLE AIRCRAFT_TYPE (
+    -> MANUFACTURER VARCHAR(60) NOT NULL,
+    -> MODEL VARCHAR(60) NOT NULL,
+    -> SEATS INTEGER,
+    -> RETRACT BOOLEAN);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> DESC AIRCRAFT_TYPE
+    -> ;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| MANUFACTURER | varchar(60) | NO   |     | NULL    |       |
+| MODEL        | varchar(60) | NO   |     | NULL    |       |
+| SEATS        | int(11)     | YES  |     | NULL    |       |
+| RETRACT      | tinyint(1)  | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE TABLE PILOT(
+    -> NAME CARCHAR(60) NOT NULL,
+    -> AVAILABLE VARCHAR(7),
+    -> COMPLEX_ENDORSEMENT BOOLEAN);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CARCHAR(60) NOT NULL,
+AVAILABLE VARCHAR(7),
+COMPLEX_ENDORSEMENT BOOLEAN)' at line 2
+mysql> ALTER TABLE ADD COLUMN CRUISE_SPEED INTEGER;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ADD COLUMN CRUISE_SPEED INTEGER' at line 1
+mysql> SHOW TABLES
+    -> ;
++-------------------------+
+| Tables_in_cs105_wickham |
++-------------------------+
+| AIRCRAFT_TYPE           |
+| AUCTION                 |
+| AUCTION_STATUS          |
+| BID                     |
+| ITEM_CATEGORY           |
+| PERSON                  |
+| SEQ                     |
++-------------------------+
+7 rows in set (0.00 sec)
+
+mysql> ALTER TABLE AIRCRAFT_TYPE  ADD COLUMN CRUISE_SPEED INTEGER;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC AIRCRAFT_YPE;
+ERROR 1146 (42S02): Table 'cs105_wickham.AIRCRAFT_YPE' doesn't exist
+mysql> DESC AIRCRAFT_TYPE;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| MANUFACTURER | varchar(60) | NO   |     | NULL    |       |
+| MODEL        | varchar(60) | NO   |     | NULL    |       |
+| SEATS        | int(11)     | YES  |     | NULL    |       |
+| RETRACT      | tinyint(1)  | YES  |     | NULL    |       |
+| CRUISE_SPEED | int(11)     | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE AIRCRAFT_TYPE  ADD COLUMN SERVICE_CEILING INTEGER;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE AIRCRAFT_TYPE CHANGE COLUMN RETRACT RETRACTABLE_GEAR INTEGER;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC AIRCRAFT_TYPE
+    -> ;
++------------------+-------------+------+-----+---------+-------+
+| Field            | Type        | Null | Key | Default | Extra |
++------------------+-------------+------+-----+---------+-------+
+| MANUFACTURER     | varchar(60) | NO   |     | NULL    |       |
+| MODEL            | varchar(60) | NO   |     | NULL    |       |
+| SEATS            | int(11)     | YES  |     | NULL    |       |
+| RETRACTABLE_GEAR | int(11)     | YES  |     | NULL    |       |
+| CRUISE_SPEED     | int(11)     | YES  |     | NULL    |       |
+| SERVICE_CEILING  | int(11)     | YES  |     | NULL    |       |
++------------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM AIRCRAFT_TYPE;
+Empty set (0.00 sec)
+
+mysql> DESC PILOT;
+ERROR 1146 (42S02): Table 'cs105_wickham.PILOT' doesn't exist
+mysql> CREATE TABLE PILOT(
+    -> NAME VARCHAR(60) NOT NULL,
+    -> AVAILABLE VARCHAR(7),
+    -> COMPLEX_ENDORSEMENT BOOLEAN);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> DESC PILOT;
++---------------------+-------------+------+-----+---------+-------+
+| Field               | Type        | Null | Key | Default | Extra |
++---------------------+-------------+------+-----+---------+-------+
+| NAME                | varchar(60) | NO   |     | NULL    |       |
+| AVAILABLE           | varchar(7)  | YES  |     | NULL    |       |
+| COMPLEX_ENDORSEMENT | tinyint(1)  | YES  |     | NULL    |       |
++---------------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> INSERT INTO PILOT (NAME, AVAILABLE, COMPLEX_ENDORSEMENT) VALUES ('Tyler', 'MTWRF', TRUE);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from pilot;
+ERROR 1146 (42S02): Table 'cs105_wickham.pilot' doesn't exist
+mysql> SELECT * FROM PILOT;
++-------+-----------+---------------------+
+| NAME  | AVAILABLE | COMPLEX_ENDORSEMENT |
++-------+-----------+---------------------+
+| Tyler | MTWRF     |                   1 |
++-------+-----------+---------------------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO PILOT (NAME, AVAILABLE, COMPLEX_ENDORSEMENT) VALUES ('Keith', 'MTRF', FALSE);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO PILOT (NAME, AVAILABLE, COMPLEX_ENDORSEMENT) VALUES ('SDAFith', 'MTRF', FALSE);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DELETE FROM PILOT WHERE (AVAILABLE = 'MTRF');
+Query OK, 2 rows affected (0.00 sec)
+
+mysql> SELECT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR WHERE PILOT.NAME = 'Keith';
+Empty set (0.00 sec)
+
+mysql> SELECT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR OR AIRCRAFT_TYPE.RETRACTABLE_GEAR = FALSE WHERE PILOT.NAME = 'Tyler';
+Empty set (0.00 sec)
+
+mysql> SELECT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR OR AIRCRAFT_TYPE.RETRACTABLE_GEAR = FALSE WHERE PILOT.AVAILABLE LIKE '%R%';
+Empty set (0.00 sec)
+
+mysql> SELECT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL, PILOT.NAME FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR OR AIRCRAFT_TYPE.RETRACTABLE_GEAR = FALSE WHERE PILOT.AVAILABLE LIKE '%R%';
+Empty set (0.00 sec)
+
+mysql> SELECT DISTINCT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR OR AIRCRAFT_TYPE.RETRACTABLE_GEAR = FALSE WHERE PILOT.AVAILABLE LIKE '%R%';
+Empty set (0.00 sec)
+
+mysql> 
+ql> CREATE TABLE AIRCRAFT_TYPE (
+    -> MANUFACTURER VARCHAR(60) NOT NULL,
+    -> MODEL VARCHAR(60) NOT NULL,
+    -> SEATS INTEGER,
+    -> RETRACT BOOLEAN);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> DESC AIRCRAFT_TYPE
+    -> ;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| MANUFACTURER | varchar(60) | NO   |     | NULL    |       |
+| MODEL        | varchar(60) | NO   |     | NULL    |       |
+| SEATS        | int(11)     | YES  |     | NULL    |       |
+| RETRACT      | tinyint(1)  | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE TABLE PILOT(
+    -> NAME CARCHAR(60) NOT NULL,
+    -> AVAILABLE VARCHAR(7),
+    -> COMPLEX_ENDORSEMENT BOOLEAN);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CARCHAR(60) NOT NULL,
+AVAILABLE VARCHAR(7),
+COMPLEX_ENDORSEMENT BOOLEAN)' at line 2
+mysql> ALTER TABLE ADD COLUMN CRUISE_SPEED INTEGER;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ADD COLUMN CRUISE_SPEED INTEGER' at line 1
+mysql> SHOW TABLES
+    -> ;
++-------------------------+
+| Tables_in_cs105_wickham |
++-------------------------+
+| AIRCRAFT_TYPE           |
+| AUCTION                 |
+| AUCTION_STATUS          |
+| BID                     |
+| ITEM_CATEGORY           |
+| PERSON                  |
+| SEQ                     |
++-------------------------+
+7 rows in set (0.00 sec)
+
+mysql> ALTER TABLE AIRCRAFT_TYPE  ADD COLUMN CRUISE_SPEED INTEGER;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC AIRCRAFT_YPE;
+ERROR 1146 (42S02): Table 'cs105_wickham.AIRCRAFT_YPE' doesn't exist
+mysql> DESC AIRCRAFT_TYPE;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| MANUFACTURER | varchar(60) | NO   |     | NULL    |       |
+| MODEL        | varchar(60) | NO   |     | NULL    |       |
+| SEATS        | int(11)     | YES  |     | NULL    |       |
+| RETRACT      | tinyint(1)  | YES  |     | NULL    |       |
+| CRUISE_SPEED | int(11)     | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE AIRCRAFT_TYPE  ADD COLUMN SERVICE_CEILING INTEGER;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE AIRCRAFT_TYPE CHANGE COLUMN RETRACT RETRACTABLE_GEAR INTEGER;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC AIRCRAFT_TYPE
+    -> ;
++------------------+-------------+------+-----+---------+-------+
+| Field            | Type        | Null | Key | Default | Extra |
++------------------+-------------+------+-----+---------+-------+
+| MANUFACTURER     | varchar(60) | NO   |     | NULL    |       |
+| MODEL            | varchar(60) | NO   |     | NULL    |       |
+| SEATS            | int(11)     | YES  |     | NULL    |       |
+| RETRACTABLE_GEAR | int(11)     | YES  |     | NULL    |       |
+| CRUISE_SPEED     | int(11)     | YES  |     | NULL    |       |
+| SERVICE_CEILING  | int(11)     | YES  |     | NULL    |       |
++------------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM AIRCRAFT_TYPE;
+Empty set (0.00 sec)
+
+mysql> DESC PILOT;
+ERROR 1146 (42S02): Table 'cs105_wickham.PILOT' doesn't exist
+mysql> CREATE TABLE PILOT(
+    -> NAME VARCHAR(60) NOT NULL,
+    -> AVAILABLE VARCHAR(7),
+    -> COMPLEX_ENDORSEMENT BOOLEAN);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> DESC PILOT;
++---------------------+-------------+------+-----+---------+-------+
+| Field               | Type        | Null | Key | Default | Extra |
++---------------------+-------------+------+-----+---------+-------+
+| NAME                | varchar(60) | NO   |     | NULL    |       |
+| AVAILABLE           | varchar(7)  | YES  |     | NULL    |       |
+| COMPLEX_ENDORSEMENT | tinyint(1)  | YES  |     | NULL    |       |
++---------------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> INSERT INTO PILOT (NAME, AVAILABLE, COMPLEX_ENDORSEMENT) VALUES ('Tyler', 'MTWRF', TRUE);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from pilot;
+ERROR 1146 (42S02): Table 'cs105_wickham.pilot' doesn't exist
+mysql> SELECT * FROM PILOT;
++-------+-----------+---------------------+
+| NAME  | AVAILABLE | COMPLEX_ENDORSEMENT |
++-------+-----------+---------------------+
+| Tyler | MTWRF     |                   1 |
++-------+-----------+---------------------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO PILOT (NAME, AVAILABLE, COMPLEX_ENDORSEMENT) VALUES ('Keith', 'MTRF', FALSE);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO PILOT (NAME, AVAILABLE, COMPLEX_ENDORSEMENT) VALUES ('SDAFith', 'MTRF', FALSE);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DELETE FROM PILOT WHERE (AVAILABLE = 'MTRF');
+Query OK, 2 rows affected (0.00 sec)
+
+mysql> SELECT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR WHERE PILOT.NAME = 'Keith';
+Empty set (0.00 sec)
+
+mysql> SELECT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR OR AIRCRAFT_TYPE.RETRACTABLE_GEAR = FALSE WHERE PILOT.NAME = 'Tyler';
+Empty set (0.00 sec)
+
+mysql> SELECT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR OR AIRCRAFT_TYPE.RETRACTABLE_GEAR = FALSE WHERE PILOT.AVAILABLE LIKE '%R%';
+Empty set (0.00 sec)
+
+mysql> SELECT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL, PILOT.NAME FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR OR AIRCRAFT_TYPE.RETRACTABLE_GEAR = FALSE WHERE PILOT.AVAILABLE LIKE '%R%';
+Empty set (0.00 sec)
+
+mysql> SELECT DISTINCT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR OR AIRCRAFT_TYPE.RETRACTABLE_GEAR = FALSE WHERE PILOT.AVAILABLE LIKE '%R%';
+Empty set (0.00 sec)
+
+mysql> 
+mysql> CREATE TABLE AIRCRAFT_TYPE (
+    -> MANUFACTURER VARCHAR(60) NOT NULL,
+    -> MODEL VARCHAR(60) NOT NULL,
+    -> SEATS INTEGER,
+    -> RETRACT BOOLEAN);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> DESC AIRCRAFT_TYPE
+    -> ;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| MANUFACTURER | varchar(60) | NO   |     | NULL    |       |
+| MODEL        | varchar(60) | NO   |     | NULL    |       |
+| SEATS        | int(11)     | YES  |     | NULL    |       |
+| RETRACT      | tinyint(1)  | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE TABLE PILOT(
+    -> NAME CARCHAR(60) NOT NULL,
+    -> AVAILABLE VARCHAR(7),
+    -> COMPLEX_ENDORSEMENT BOOLEAN);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CARCHAR(60) NOT NULL,
+AVAILABLE VARCHAR(7),
+COMPLEX_ENDORSEMENT BOOLEAN)' at line 2
+mysql> ALTER TABLE ADD COLUMN CRUISE_SPEED INTEGER;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ADD COLUMN CRUISE_SPEED INTEGER' at line 1
+mysql> SHOW TABLES
+    -> ;
++-------------------------+
+| Tables_in_cs105_wickham |
++-------------------------+
+| AIRCRAFT_TYPE           |
+| AUCTION                 |
+| AUCTION_STATUS          |
+| BID                     |
+| ITEM_CATEGORY           |
+| PERSON                  |
+| SEQ                     |
++-------------------------+
+7 rows in set (0.00 sec)
+
+mysql> ALTER TABLE AIRCRAFT_TYPE  ADD COLUMN CRUISE_SPEED INTEGER;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC AIRCRAFT_YPE;
+ERROR 1146 (42S02): Table 'cs105_wickham.AIRCRAFT_YPE' doesn't exist
+mysql> DESC AIRCRAFT_TYPE;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| MANUFACTURER | varchar(60) | NO   |     | NULL    |       |
+| MODEL        | varchar(60) | NO   |     | NULL    |       |
+| SEATS        | int(11)     | YES  |     | NULL    |       |
+| RETRACT      | tinyint(1)  | YES  |     | NULL    |       |
+| CRUISE_SPEED | int(11)     | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE AIRCRAFT_TYPE  ADD COLUMN SERVICE_CEILING INTEGER;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE AIRCRAFT_TYPE CHANGE COLUMN RETRACT RETRACTABLE_GEAR INTEGER;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC AIRCRAFT_TYPE
+    -> ;
++------------------+-------------+------+-----+---------+-------+
+| Field            | Type        | Null | Key | Default | Extra |
++------------------+-------------+------+-----+---------+-------+
+| MANUFACTURER     | varchar(60) | NO   |     | NULL    |       |
+| MODEL            | varchar(60) | NO   |     | NULL    |       |
+| SEATS            | int(11)     | YES  |     | NULL    |       |
+| RETRACTABLE_GEAR | int(11)     | YES  |     | NULL    |       |
+| CRUISE_SPEED     | int(11)     | YES  |     | NULL    |       |
+| SERVICE_CEILING  | int(11)     | YES  |     | NULL    |       |
++------------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM AIRCRAFT_TYPE;
+Empty set (0.00 sec)
+
+mysql> DESC PILOT;
+ERROR 1146 (42S02): Table 'cs105_wickham.PILOT' doesn't exist
+mysql> CREATE TABLE PILOT(
+    -> NAME VARCHAR(60) NOT NULL,
+    -> AVAILABLE VARCHAR(7),
+    -> COMPLEX_ENDORSEMENT BOOLEAN);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> DESC PILOT;
++---------------------+-------------+------+-----+---------+-------+
+| Field               | Type        | Null | Key | Default | Extra |
++---------------------+-------------+------+-----+---------+-------+
+| NAME                | varchar(60) | NO   |     | NULL    |       |
+| AVAILABLE           | varchar(7)  | YES  |     | NULL    |       |
+| COMPLEX_ENDORSEMENT | tinyint(1)  | YES  |     | NULL    |       |
++---------------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> INSERT INTO PILOT (NAME, AVAILABLE, COMPLEX_ENDORSEMENT) VALUES ('Tyler', 'MTWRF', TRUE);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from pilot;
+ERROR 1146 (42S02): Table 'cs105_wickham.pilot' doesn't exist
+mysql> SELECT * FROM PILOT;
++-------+-----------+---------------------+
+| NAME  | AVAILABLE | COMPLEX_ENDORSEMENT |
++-------+-----------+---------------------+
+| Tyler | MTWRF     |                   1 |
++-------+-----------+---------------------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO PILOT (NAME, AVAILABLE, COMPLEX_ENDORSEMENT) VALUES ('Keith', 'MTRF', FALSE);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO PILOT (NAME, AVAILABLE, COMPLEX_ENDORSEMENT) VALUES ('SDAFith', 'MTRF', FALSE);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DELETE FROM PILOT WHERE (AVAILABLE = 'MTRF');
+Query OK, 2 rows affected (0.00 sec)
+
+mysql> SELECT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR WHERE PILOT.NAME = 'Keith';
+Empty set (0.00 sec)
+
+mysql> SELECT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR OR AIRCRAFT_TYPE.RETRACTABLE_GEAR = FALSE WHERE PILOT.NAME = 'Tyler';
+Empty set (0.00 sec)
+
+mysql> SELECT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR OR AIRCRAFT_TYPE.RETRACTABLE_GEAR = FALSE WHERE PILOT.AVAILABLE LIKE '%R%';
+Empty set (0.00 sec)
+
+mysql> SELECT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL, PILOT.NAME FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR OR AIRCRAFT_TYPE.RETRACTABLE_GEAR = FALSE WHERE PILOT.AVAILABLE LIKE '%R%';
+Empty set (0.00 sec)
+
+mysql> SELECT DISTINCT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR OR AIRCRAFT_TYPE.RETRACTABLE_GEAR = FALSE WHERE PILOT.AVAILABLE LIKE '%R%';
+mysql> CREATE TABLE AIRCRAFT_TYPE (
+    -> MANUFACTURER VARCHAR(60) NOT NULL,
+    -> MODEL VARCHAR(60) NOT NULL,
+    -> SEATS INTEGER,
+    -> RETRACT BOOLEAN);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> DESC AIRCRAFT_TYPE
+    -> ;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| MANUFACTURER | varchar(60) | NO   |     | NULL    |       |
+| MODEL        | varchar(60) | NO   |     | NULL    |       |
+| SEATS        | int(11)     | YES  |     | NULL    |       |
+| RETRACT      | tinyint(1)  | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE TABLE PILOT(
+    -> NAME CARCHAR(60) NOT NULL,
+    -> AVAILABLE VARCHAR(7),
+    -> COMPLEX_ENDORSEMENT BOOLEAN);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CARCHAR(60) NOT NULL,
+AVAILABLE VARCHAR(7),
+COMPLEX_ENDORSEMENT BOOLEAN)' at line 2
+mysql> ALTER TABLE ADD COLUMN CRUISE_SPEED INTEGER;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ADD COLUMN CRUISE_SPEED INTEGER' at line 1
+mysql> SHOW TABLES
+    -> ;
++-------------------------+
+| Tables_in_cs105_wickham |
++-------------------------+
+| AIRCRAFT_TYPE           |
+| AUCTION                 |
+| AUCTION_STATUS          |
+| BID                     |
+| ITEM_CATEGORY           |
+| PERSON                  |
+| SEQ                     |
++-------------------------+
+7 rows in set (0.00 sec)
+
+mysql> ALTER TABLE AIRCRAFT_TYPE  ADD COLUMN CRUISE_SPEED INTEGER;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC AIRCRAFT_YPE;
+ERROR 1146 (42S02): Table 'cs105_wickham.AIRCRAFT_YPE' doesn't exist
+mysql> DESC AIRCRAFT_TYPE;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| MANUFACTURER | varchar(60) | NO   |     | NULL    |       |
+| MODEL        | varchar(60) | NO   |     | NULL    |       |
+| SEATS        | int(11)     | YES  |     | NULL    |       |
+| RETRACT      | tinyint(1)  | YES  |     | NULL    |       |
+| CRUISE_SPEED | int(11)     | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE AIRCRAFT_TYPE  ADD COLUMN SERVICE_CEILING INTEGER;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE AIRCRAFT_TYPE CHANGE COLUMN RETRACT RETRACTABLE_GEAR INTEGER;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC AIRCRAFT_TYPE
+    -> ;
++------------------+-------------+------+-----+---------+-------+
+| Field            | Type        | Null | Key | Default | Extra |
++------------------+-------------+------+-----+---------+-------+
+| MANUFACTURER     | varchar(60) | NO   |     | NULL    |       |
+| MODEL            | varchar(60) | NO   |     | NULL    |       |
+| SEATS            | int(11)     | YES  |     | NULL    |       |
+| RETRACTABLE_GEAR | int(11)     | YES  |     | NULL    |       |
+| CRUISE_SPEED     | int(11)     | YES  |     | NULL    |       |
+| SERVICE_CEILING  | int(11)     | YES  |     | NULL    |       |
++------------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM AIRCRAFT_TYPE;
+Empty set (0.00 sec)
+
+mysql> DESC PILOT;
+ERROR 1146 (42S02): Table 'cs105_wickham.PILOT' doesn't exist
+mysql> CREATE TABLE PILOT(
+    -> NAME VARCHAR(60) NOT NULL,
+    -> AVAILABLE VARCHAR(7),
+    -> COMPLEX_ENDORSEMENT BOOLEAN);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> DESC PILOT;
++---------------------+-------------+------+-----+---------+-------+
+| Field               | Type        | Null | Key | Default | Extra |
++---------------------+-------------+------+-----+---------+-------+
+| NAME                | varchar(60) | NO   |     | NULL    |       |
+| AVAILABLE           | varchar(7)  | YES  |     | NULL    |       |
+| COMPLEX_ENDORSEMENT | tinyint(1)  | YES  |     | NULL    |       |
++---------------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> INSERT INTO PILOT (NAME, AVAILABLE, COMPLEX_ENDORSEMENT) VALUES ('Tyler', 'MTWRF', TRUE);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from pilot;
+ERROR 1146 (42S02): Table 'cs105_wickham.pilot' doesn't exist
+mysql> SELECT * FROM PILOT;
++-------+-----------+---------------------+
+| NAME  | AVAILABLE | COMPLEX_ENDORSEMENT |
++-------+-----------+---------------------+
+| Tyler | MTWRF     |                   1 |
++-------+-----------+---------------------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO PILOT (NAME, AVAILABLE, COMPLEX_ENDORSEMENT) VALUES ('Keith', 'MTRF', FALSE);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO PILOT (NAME, AVAILABLE, COMPLEX_ENDORSEMENT) VALUES ('SDAFith', 'MTRF', FALSE);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DELETE FROM PILOT WHERE (AVAILABLE = 'MTRF');
+Query OK, 2 rows affected (0.00 sec)
+
+mysql> SELECT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR WHERE PILOT.NAME = 'Keith';
+Empty set (0.00 sec)
+
+mysql> SELECT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR OR AIRCRAFT_TYPE.RETRACTABLE_GEAR = FALSE WHERE PILOT.NAME = 'Tyler';
+Empty set (0.00 sec)
+
+mysql> SELECT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR OR AIRCRAFT_TYPE.RETRACTABLE_GEAR = FALSE WHERE PILOT.AVAILABLE LIKE '%R%';
+Empty set (0.00 sec)
+
+mysql> SELECT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL, PILOT.NAME FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR OR AIRCRAFT_TYPE.RETRACTABLE_GEAR = FALSE WHERE PILOT.AVAILABLE LIKE '%R%';
+Empty set (0.00 sec)
+
+mysql> SELECT DISTINCT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR OR AIRCRAFT_TYPE.RETRACTABLE_GEAR = FALSE WHERE PILOT.AVAILABLE LIKE '%R%';
+mysql> CREATE TABLE AIRCRAFT_TYPE (
+    -> MANUFACTURER VARCHAR(60) NOT NULL,
+    -> MODEL VARCHAR(60) NOT NULL,
+    -> SEATS INTEGER,
+    -> RETRACT BOOLEAN);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> DESC AIRCRAFT_TYPE
+    -> ;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| MANUFACTURER | varchar(60) | NO   |     | NULL    |       |
+| MODEL        | varchar(60) | NO   |     | NULL    |       |
+| SEATS        | int(11)     | YES  |     | NULL    |       |
+| RETRACT      | tinyint(1)  | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE TABLE PILOT(
+    -> NAME CARCHAR(60) NOT NULL,
+    -> AVAILABLE VARCHAR(7),
+    -> COMPLEX_ENDORSEMENT BOOLEAN);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CARCHAR(60) NOT NULL,
+AVAILABLE VARCHAR(7),
+COMPLEX_ENDORSEMENT BOOLEAN)' at line 2
+mysql> ALTER TABLE ADD COLUMN CRUISE_SPEED INTEGER;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ADD COLUMN CRUISE_SPEED INTEGER' at line 1
+mysql> SHOW TABLES
+    -> ;
++-------------------------+
+| Tables_in_cs105_wickham |
++-------------------------+
+| AIRCRAFT_TYPE           |
+| AUCTION                 |
+| AUCTION_STATUS          |
+| BID                     |
+| ITEM_CATEGORY           |
+| PERSON                  |
+| SEQ                     |
++-------------------------+
+7 rows in set (0.00 sec)
+
+mysql> ALTER TABLE AIRCRAFT_TYPE  ADD COLUMN CRUISE_SPEED INTEGER;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC AIRCRAFT_YPE;
+ERROR 1146 (42S02): Table 'cs105_wickham.AIRCRAFT_YPE' doesn't exist
+mysql> DESC AIRCRAFT_TYPE;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| MANUFACTURER | varchar(60) | NO   |     | NULL    |       |
+| MODEL        | varchar(60) | NO   |     | NULL    |       |
+| SEATS        | int(11)     | YES  |     | NULL    |       |
+| RETRACT      | tinyint(1)  | YES  |     | NULL    |       |
+| CRUISE_SPEED | int(11)     | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE AIRCRAFT_TYPE  ADD COLUMN SERVICE_CEILING INTEGER;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE AIRCRAFT_TYPE CHANGE COLUMN RETRACT RETRACTABLE_GEAR INTEGER;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC AIRCRAFT_TYPE
+    -> ;
++------------------+-------------+------+-----+---------+-------+
+| Field            | Type        | Null | Key | Default | Extra |
++------------------+-------------+------+-----+---------+-------+
+| MANUFACTURER     | varchar(60) | NO   |     | NULL    |       |
+| MODEL            | varchar(60) | NO   |     | NULL    |       |
+| SEATS            | int(11)     | YES  |     | NULL    |       |
+| RETRACTABLE_GEAR | int(11)     | YES  |     | NULL    |       |
+| CRUISE_SPEED     | int(11)     | YES  |     | NULL    |       |
+| SERVICE_CEILING  | int(11)     | YES  |     | NULL    |       |
++------------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM AIRCRAFT_TYPE;
+Empty set (0.00 sec)
+
+mysql> DESC PILOT;
+ERROR 1146 (42S02): Table 'cs105_wickham.PILOT' doesn't exist
+mysql> CREATE TABLE PILOT(
+    -> NAME VARCHAR(60) NOT NULL,
+    -> AVAILABLE VARCHAR(7),
+    -> COMPLEX_ENDORSEMENT BOOLEAN);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> DESC PILOT;
++---------------------+-------------+------+-----+---------+-------+
+| Field               | Type        | Null | Key | Default | Extra |
++---------------------+-------------+------+-----+---------+-------+
+| NAME                | varchar(60) | NO   |     | NULL    |       |
+| AVAILABLE           | varchar(7)  | YES  |     | NULL    |       |
+| COMPLEX_ENDORSEMENT | tinyint(1)  | YES  |     | NULL    |       |
++---------------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> INSERT INTO PILOT (NAME, AVAILABLE, COMPLEX_ENDORSEMENT) VALUES ('Tyler', 'MTWRF', TRUE);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from pilot;
+ERROR 1146 (42S02): Table 'cs105_wickham.pilot' doesn't exist
+mysql> SELECT * FROM PILOT;
++-------+-----------+---------------------+
+| NAME  | AVAILABLE | COMPLEX_ENDORSEMENT |
++-------+-----------+---------------------+
+| Tyler | MTWRF     |                   1 |
++-------+-----------+---------------------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO PILOT (NAME, AVAILABLE, COMPLEX_ENDORSEMENT) VALUES ('Keith', 'MTRF', FALSE);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO PILOT (NAME, AVAILABLE, COMPLEX_ENDORSEMENT) VALUES ('SDAFith', 'MTRF', FALSE);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DELETE FROM PILOT WHERE (AVAILABLE = 'MTRF');
+Query OK, 2 rows affected (0.00 sec)
+
+mysql> SELECT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR WHERE PILOT.NAME = 'Keith';
+Empty set (0.00 sec)
+
+mysql> SELECT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR OR AIRCRAFT_TYPE.RETRACTABLE_GEAR = FALSE WHERE PILOT.NAME = 'Tyler';
+Empty set (0.00 sec)
+
+mysql> SELECT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR OR AIRCRAFT_TYPE.RETRACTABLE_GEAR = FALSE WHERE PILOT.AVAILABLE LIKE '%R%';
+Empty set (0.00 sec)
+
+mysql> SELECT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL, PILOT.NAME FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR OR AIRCRAFT_TYPE.RETRACTABLE_GEAR = FALSE WHERE PILOT.AVAILABLE LIKE '%R%';
+Empty set (0.00 sec)
+
+mysql> SELECT DISTINCT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR OR AIRCRAFT_TYPE.RETRACTABLE_GEAR = FALSE WHERE PILOT.AVAILABLE LIKE '%R%';
+Empty set (0.00 sec)
+
+mysql> 
+mysql> CREATE TABLE AIRCRAFT_TYPE (
+    -> MANUFACTURER VARCHAR(60) NOT NULL,
+    -> MODEL VARCHAR(60) NOT NULL,
+    -> SEATS INTEGER,
+    -> RETRACT BOOLEAN);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> DESC AIRCRAFT_TYPE
+    -> ;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| MANUFACTURER | varchar(60) | NO   |     | NULL    |       |
+| MODEL        | varchar(60) | NO   |     | NULL    |       |
+| SEATS        | int(11)     | YES  |     | NULL    |       |
+| RETRACT      | tinyint(1)  | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE TABLE PILOT(
+    -> NAME CARCHAR(60) NOT NULL,
+    -> AVAILABLE VARCHAR(7),
+    -> COMPLEX_ENDORSEMENT BOOLEAN);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CARCHAR(60) NOT NULL,
+AVAILABLE VARCHAR(7),
+COMPLEX_ENDORSEMENT BOOLEAN)' at line 2
+mysql> ALTER TABLE ADD COLUMN CRUISE_SPEED INTEGER;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ADD COLUMN CRUISE_SPEED INTEGER' at line 1
+mysql> SHOW TABLES
+    -> ;
++-------------------------+
+| Tables_in_cs105_wickham |
++-------------------------+
+| AIRCRAFT_TYPE           |
+| AUCTION                 |
+| AUCTION_STATUS          |
+| BID                     |
+| ITEM_CATEGORY           |
+| PERSON                  |
+| SEQ                     |
++-------------------------+
+7 rows in set (0.00 sec)
+
+mysql> ALTER TABLE AIRCRAFT_TYPE  ADD COLUMN CRUISE_SPEED INTEGER;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC AIRCRAFT_YPE;
+ERROR 1146 (42S02): Table 'cs105_wickham.AIRCRAFT_YPE' doesn't exist
+mysql> DESC AIRCRAFT_TYPE;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| MANUFACTURER | varchar(60) | NO   |     | NULL    |       |
+| MODEL        | varchar(60) | NO   |     | NULL    |       |
+| SEATS        | int(11)     | YES  |     | NULL    |       |
+| RETRACT      | tinyint(1)  | YES  |     | NULL    |       |
+| CRUISE_SPEED | int(11)     | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE AIRCRAFT_TYPE  ADD COLUMN SERVICE_CEILING INTEGER;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE AIRCRAFT_TYPE CHANGE COLUMN RETRACT RETRACTABLE_GEAR INTEGER;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC AIRCRAFT_TYPE
+    -> ;
++------------------+-------------+------+-----+---------+-------+
+| Field            | Type        | Null | Key | Default | Extra |
++------------------+-------------+------+-----+---------+-------+
+| MANUFACTURER     | varchar(60) | NO   |     | NULL    |       |
+| MODEL            | varchar(60) | NO   |     | NULL    |       |
+| SEATS            | int(11)     | YES  |     | NULL    |       |
+| RETRACTABLE_GEAR | int(11)     | YES  |     | NULL    |       |
+| CRUISE_SPEED     | int(11)     | YES  |     | NULL    |       |
+| SERVICE_CEILING  | int(11)     | YES  |     | NULL    |       |
++------------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM AIRCRAFT_TYPE;
+Empty set (0.00 sec)
+
+mysql> DESC PILOT;
+ERROR 1146 (42S02): Table 'cs105_wickham.PILOT' doesn't exist
+mysql> CREATE TABLE PILOT(
+    -> NAME VARCHAR(60) NOT NULL,
+    -> AVAILABLE VARCHAR(7),
+    -> COMPLEX_ENDORSEMENT BOOLEAN);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> DESC PILOT;
++---------------------+-------------+------+-----+---------+-------+
+| Field               | Type        | Null | Key | Default | Extra |
++---------------------+-------------+------+-----+---------+-------+
+| NAME                | varchar(60) | NO   |     | NULL    |       |
+| AVAILABLE           | varchar(7)  | YES  |     | NULL    |       |
+| COMPLEX_ENDORSEMENT | tinyint(1)  | YES  |     | NULL    |       |
++---------------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> INSERT INTO PILOT (NAME, AVAILABLE, COMPLEX_ENDORSEMENT) VALUES ('Tyler', 'MTWRF', TRUE);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from pilot;
+ERROR 1146 (42S02): Table 'cs105_wickham.pilot' doesn't exist
+mysql> SELECT * FROM PILOT;
++-------+-----------+---------------------+
+| NAME  | AVAILABLE | COMPLEX_ENDORSEMENT |
++-------+-----------+---------------------+
+| Tyler | MTWRF     |                   1 |
++-------+-----------+---------------------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO PILOT (NAME, AVAILABLE, COMPLEX_ENDORSEMENT) VALUES ('Keith', 'MTRF', FALSE);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO PILOT (NAME, AVAILABLE, COMPLEX_ENDORSEMENT) VALUES ('SDAFith', 'MTRF', FALSE);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DELETE FROM PILOT WHERE (AVAILABLE = 'MTRF');
+Query OK, 2 rows affected (0.00 sec)
+
+mysql> SELECT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR WHERE PILOT.NAME = 'Keith';
+Empty set (0.00 sec)
+
+mysql> SELECT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR OR AIRCRAFT_TYPE.RETRACTABLE_GEAR = FALSE WHERE PILOT.NAME = 'Tyler';
+Empty set (0.00 sec)
+
+mysql> SELECT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR OR AIRCRAFT_TYPE.RETRACTABLE_GEAR = FALSE WHERE PILOT.AVAILABLE LIKE '%R%';
+Empty set (0.00 sec)
+
+mysql> SELECT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL, PILOT.NAME FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR OR AIRCRAFT_TYPE.RETRACTABLE_GEAR = FALSE WHERE PILOT.AVAILABLE LIKE '%R%';
+Empty set (0.00 sec)
+
+mysql> SELECT DISTINCT AIRCRAFT_TYPE.MANUFACTURER, AIRCRAFT_TYPE.MODEL FROM AIRCRAFT_TYPE JOIN PILOT ON PILOT.COMPLEX_ENDORSEMENT = AIRCRAFT_TYPE.RETRACTABLE_GEAR OR AIRCRAFT_TYPE.RETRACTABLE_GEAR = FALSE WHERE PILOT.AVAILABLE LIKE '%R%';
+Empty set (0.00 sec)
+
+mysql> 
+Empty set (0.00 sec)
+
+mysql> 
+Empty set (0.00 sec)
+
+mysql> 
+

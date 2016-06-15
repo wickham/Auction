@@ -1,0 +1,153 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+/*Throughout the document, I use several rule sets with selectors of different specificity
+	(div.., span.., etc) */
+
+* { 
+	font-family:Arial, Helvetica, sans-serif;
+
+}
+
+body{
+	background-color: rgb(51,51,51);
+}
+
+
+/* first element box model Div*/
+div { 
+	background-color:	rgb(153,153,153);
+	text-align: left;
+ 	width: 800px;
+	margin: 0 auto;
+	
+	border: 0.2em solid rgb(0,0,51);
+	
+	padding: 1.0em;
+	}
+
+/* second element box model Div.login*/
+
+
+
+div.login{
+	background-color: rgb(0,0,0);
+	color: rgb(204,204,204);
+
+	text-align: left;
+ 	width: 800px;
+	 margin: 0 auto;
+	
+	border: 0.2em solid rgb(51,51,51);
+	
+	padding: 1em;
+	}
+	
+div.top{
+	background-color: rgb(0,0,0);
+	color: rgb(204,204,204);
+	width:50em;
+	height:4em;
+text-align: left;
+ width: 800px;
+ margin: 0 auto;
+	border: 0.2em solid rgb(51,51,51);
+	
+	padding: 1em;
+	}
+.fields{
+	text-align:right;
+}
+
+div.red{
+
+	text-align:center;	
+}
+/* adjacent elements using float*/
+
+span.search{
+	float:right;
+}
+
+span.account{
+	float:left;	
+}
+
+div.top a:link{
+	color:rgb(0,102,255);
+}
+div a:link{
+	color:rgb(204,204,204);
+}
+div.top a:visited{
+	color:rgb(0,102,255);
+}
+div a:visited{
+	color:rgb(204,204,204);
+}
+
+div.top a:hover{
+	color:rgb(0,102,255);
+	text-decoration:none;
+}
+div a:hover{
+	color:rgb(204,204,204);
+	text-decoration:none;
+}
+div a:active{
+	text-decoration:none;
+}
+
+div a:link{
+	color: rgb(204,204,204);
+}
+
+form.register, form.login{
+	padding-right:20em;
+	text-align:right;
+}
+input.size{
+	width:12em;
+	height:1.5em;
+}
+
+input.button, button.button{
+		width: 5em;
+		height: 2em;
+}
+select.size,{
+	width: 12em;
+	
+	//text-indent:3em;
+}
+
+.closed{
+	text-align:center;
+	color: #F00;
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:3em;
+}
+img.icons{
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+	width:auto;
+	height:auto;
+	max-height:300px;
+	max-width:300px;
+}
+.edit{
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+	width:auto;
+	height:auto;
+	max-height:100px;
+	max-width:100px;
+}
+dt{
+	font-variant:small-caps;
+	font-weight:bold;
+	font-size:14px;
+	}

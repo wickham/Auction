@@ -1,0 +1,150 @@
+
+body {
+	background-color: #CC5500;
+}
+
+.content {
+	background-color: #D9C89E;
+    clear:both;
+    text-align:center;
+    overflow:auto;
+}
+
+h1, h3 {
+    text-align:center;
+    clear:both;
+}
+
+.user_separator {
+    border-bottom: 4px solid;
+}
+/*box model*/
+.centered {
+    position:absolute;
+    top: 50%;
+    left: 50%;
+	border: 1px solid;
+	margin-left: -258px;
+	margin-top: -161px;
+	text-align: center;
+    padding:60px 160px;
+    background-color: #D9C89E;
+}
+
+* {
+	font-family: 'Gafata', "Trebuchet MS",sans-serif;
+}
+
+/*items that are displayed on other pages but are not specifically an item page*/
+/*also, box model*/
+.item_default {
+	background-color: white;
+	border: 2px solid;
+    float:left;
+    text-align:center;
+    padding: 50px 50px;
+    margin: 20px 20px;
+}
+
+.navbar {
+    width: 100%;
+    float: left;
+    list-style:none;
+}
+
+.navbar li {
+    float: left;
+    padding: 0px 50px;
+    border: 1px solid;
+    text-align:center;
+    background-color: #D9C89E
+}
+
+.navbar a {
+    text-decoration:none;
+}
+
+.navbar .go_right {
+    float:right;
+    border:none;
+    margin-right: 60px;
+}
+
+.item_pic {
+    height: 200px;
+    width: auto;
+    border: 1px solid black;
+}
+
+.page_nav {
+    clear:both;
+    text-align:center
+}
+
+.browse_bar {
+    float:left;
+}
+
+.item_other {
+    text-align:center;
+}
+
+.right {
+    float:right;
+    margin-right: 20px;
+}
+
+textarea {
+    text-align: left;
+    resize: none;
+}
+
+.warning {
+    color: red;
+    background-color: black;
+}
+
+.goodtogo {
+    color: green;
+    background-color: black;
+}
+
+table {
+    width:350px;
+    text-align: center;
+}
+
+td {
+    text-align: left;
+}
+
+.button {
+    background-color: red;
+}
+/*
+html, body, #bg {
+    height:100%;
+    width:100%;
+}
+
+#bg {
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    top:0;
+    overflow:hidden;
+    z-index:0;
+}
+
+body {
+    margin:0;
+    padding:0;
+}
+
+#bg img {
+    width:100%;
+    min-width: 100%;
+    min-height: 100%;
+}
+*/
